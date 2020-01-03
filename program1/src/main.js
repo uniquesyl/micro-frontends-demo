@@ -1,12 +1,11 @@
 import { setPublicPath } from 'systemjs-webpack-interop';
 import Vue from 'vue';
-import VueX from 'vuex';
 import App from './App.vue';
 import router from './router';
 import singleSpaVue from 'single-spa-vue';
 
 setPublicPath('program1')
-Vue.use(VueX);
+
 Vue.config.productionTip = false;
 
 let appOptions = {
