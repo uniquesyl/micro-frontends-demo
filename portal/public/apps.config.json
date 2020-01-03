@@ -1,0 +1,19 @@
+{
+  "apps": [{
+    "name": "main",
+    "base": true,
+    "resourceEntryUrl": "http://localhost:8080/app.js"
+  },{
+    "name": "program1",
+    "base": false,
+    "resourceEntryUrl": "http://localhost:8081/app.js"
+  },{
+    "name": "program2",
+    "base": false,
+    "resourceEntryUrl": "http://localhost:8082/app.js"
+  },{
+    "name": "program3",
+    "base": false,
+    "resourceEntryUrl": "http://localhost:8083/app.js"
+  }]
+}

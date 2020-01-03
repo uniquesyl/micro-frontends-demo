@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <meta name="importmap-type" content="systemjs-importmap">
+    <script type="systemjs-importmap">
+        {
+          "imports": {
+            "main": "http://localhost:8080/app.js",
+            "program1": "http://localhost:8081/app.js",
+            "program2": "http://localhost:8082/app.js",
+            "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.7/system/single-spa.min.js",
+            "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js",
+            "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@3.0.7/dist/vue-router.min.js"
+          }
+        }
+      </script>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.7/system/single-spa.min.js" as="script" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/system.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/amd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-exports.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/named-register.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/use-default.min.js"></script>
+</head>
+<body>
+    <script>
+      (function() {
+        Promise.all([System.import('single-spa'), System.import('vue'), System.import('vue-router')]).then(function (modules) {
+          var singleSpa = modules[0];
+          var Vue = modules[1];
+          var VueRouter = modules[2];
+
+          Vue.use(VueRouter);
+
+          singleSpa.registerApplication(
+            'main',
+            () => System.import('main'),
+            location => true
+          );
+
+          singleSpa.registerApplication(
+            'program1',
+            () => System.import('program1'),
+            location => location.pathname.startsWith('/program1')
+          )
+          singleSpa.registerApplication(
+            'program2',
+            () => System.import('program2'),
+            location => location.pathname.startsWith('/program2')
+          )
+
+          singleSpa.start();
+        })
+      })()
+    </script>
+</body>
+</html>
