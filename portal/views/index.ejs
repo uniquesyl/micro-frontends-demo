@@ -26,7 +26,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/extras/use-default.min.js"></script>
 </head>
 <body>
-  <script>var url = window.url = 'http://localhost:8080/store.js'</script>
   <script>
     (function(){
         Promise.all([
@@ -45,19 +44,22 @@
             Vue.use(VueRouter);
             
             let storeModule = {}
-            configs.apps.forEach( project => {
-              if(project.base===true){
-                    singleSpa.registerApplication(project.name,()=>System.import(project.name),(location)=>true);
-              }
-            });
+            // configs.apps.forEach( project => {
+            //   if(project.base===true){
+            //     singleSpa.registerApplication(project.name,()=>System.import(project.name),(location)=>true);
+            //   }
+            // });
             System.import(storeUrl).then((_res)=>{
                 storeModule = _res.default;
                 configs.apps.forEach( project => {
-                  if(project.base===false){
-                    singleSpa.registerApplication(project.name,()=>System.import(project.name),(location)=>{
-                      return location.pathname.startsWith(`/${project.name}`);
+                  singleSpa.registerApplication(project.name,()=>System.import(project.name),(location)=>{
+                        return project.base?true:location.pathname.startsWith(`/${project.name}`);
                     },{store: storeModule});
-                  }
+                  // if(project.base===false){
+                  //   singleSpa.registerApplication(project.name,()=>System.import(project.name),(location)=>{
+                  //     return location.pathname.startsWith(`/${project.name}`);
+                  //   },{store: storeModule});
+                  // }
                 });
                 singleSpa.start();
             })

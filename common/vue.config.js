@@ -2,10 +2,10 @@ const path = require('path')
 const env = process.env.NODE_ENV
 module.exports = {
   configureWebpack: config => {
-    // config.output.library = 'main'
+    config.output.library = 'common'
     config.output.libraryTarget = 'amd'
     config.output.filename = `[name].js`
-    config.entry = { app: ['./src/main.js']}
+    config.entry = {store:'./src/store.js'}
     config.externals = ['vue', 'vue-router']
     if (env === 'production') {
       // 为生产环境修改配置...

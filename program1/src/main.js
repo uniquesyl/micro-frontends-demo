@@ -9,8 +9,7 @@ setPublicPath('program1')
 Vue.config.productionTip = false;
 
 let appOptions = {
-  render: (h) => h(App),
-  router
+  render: (h) => h(App)
 }
 const vueLifecycles = singleSpaVue({
   Vue,
@@ -23,10 +22,12 @@ const vueLifecycles = singleSpaVue({
 
 export function bootstrap(props) {
   appOptions.store = props.store
+  appOptions.router = router
   return vueLifecycles.bootstrap(props);
 }
 
 export function mount(props) {
+  appOptions.router = router
   return vueLifecycles.mount(props);
 }
 

@@ -11,19 +11,11 @@ fs.readFile('./public/apps.config.json',function(err,data){
   if(err){
       console.error(err);
   }
-  // console.log(JSON.parse(data.toString()).apps);
   apps = JSON.parse(data.toString()).apps;
 })
 app.use(cookieParser())
 app.use(express.static('public'))
 
-// var bodyParser = require('body-parser'); //对post请求的请求体进行解析模块
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(express.static(path.join(__dirname, 'views')));
-// 设置扩展名为 html
-// app.engine('.html',require('ejs').__express);
-// 或
-// app.engine('html', ejs.renderFile);
 
 app.set("view engine","ejs");
 
